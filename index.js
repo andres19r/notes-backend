@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const Note = require('./models/note')
 
 app.use(cors())
 
@@ -44,7 +45,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-	response.json(notes)
+	Note.find({}).then(notes => {
+		response.json(notes)
+	})
 })
 
 app.get('/api/notes/:id', (request, response) => {
